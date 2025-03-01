@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              Routes.home,
+              Routes.weatherHome,
               (route) => false,
             );
           } else if (state is AuthError) {

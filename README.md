@@ -2,173 +2,179 @@
 
 ![Fitness App Banner](assets/images/app_banner.png)
 
-## 📱 Overview
+## 📱 نظرة عامة
 
-A modern fitness application built with Flutter that enables users to track their fitness goals, monitor daily activities, and access weather information for planning outdoor workouts. This app implements Firebase Authentication for secure user management.
+تطبيق لياقة بدنية عصري مبني بواسطة Flutter يمكن المستخدمين من تتبع أهدافهم الرياضية، مراقبة الأنشطة اليومية، والوصول إلى معلومات الطقس لتخطيط التمارين الخارجية. يستخدم التطبيق Firebase Authentication لإدارة المستخدمين بشكل آمن.
 
-### 🎬 Demo Video
-🔗 **[Click here to watch the demo](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view?usp=sharing)**  
+### 🎬 فيديو توضيحي
+🔗 **[اضغط هنا لمشاهدة العرض التوضيحي](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view?usp=sharing)**  
 
-## ✨ Features
+## ✨ المميزات
 
-- **🔐 Authentication System**
-  - Email & Password Sign-up/Login
-  - Password Reset Functionality
-  - User Profile Management
+- **🔐 نظام المصادقة**
+  - تسجيل الدخول وإنشاء حساب باستخدام البريد الإلكتروني وكلمة المرور
+  - إمكانية استعادة كلمة المرور
+  - إدارة الملف الشخصي للمستخدم
 
-- **📊 Activity Tracking**
-  - Daily Steps Counter
-  - Distance Tracking
-  - Calories Burned Calculation
-  - Heart Rate Monitoring
-  - Visual Progress Charts
+- **📊 تتبع النشاط**
+  - عداد الخطوات اليومية
+  - تتبع المسافة المقطوعة
+  - حساب السعرات الحرارية المحروقة
+  - مراقبة معدل ضربات القلب
+  - رسوم بيانية لعرض التقدم
 
-- **🌦️ Weather Integration**
-  - Real-time Weather Data
-  - Location-based Forecasts
-  - Interactive Map Interface
+- **🌦️ تكامل بيانات الطقس**
+  - بيانات الطقس في الوقت الحقيقي
+  - توقعات الطقس حسب الموقع
+  - واجهة خريطة تفاعلية
 
-- **📱 Responsive Design**
-  - Adapts to various screen sizes
-  - Consistent experience across devices
+- **📱 تصميم متجاوب**
+  - يتكيف مع مختلف أحجام الشاشات
+  - تجربة مستخدم متناسقة عبر جميع الأجهزة
 
-## 📸 Screenshots
+## 📸 لقطات شاشة
 
 <table>
   <tr>
     <td align="center">
-      <img src="assets/screenshots/welcome_screen.png" width="200px" alt="Welcome Screen"/>
+      <img src="assets/screenshots/welcome_screen.png" width="200px" alt="شاشة الترحيب"/>
       <br/>شاشة الترحيب
     </td>
     <td align="center">
-      <img src="assets/screenshots/login_screen.png" width="200px" alt="Login Screen"/>
+      <img src="assets/screenshots/login_screen.png" width="200px" alt="تسجيل الدخول"/>
       <br/>تسجيل الدخول
     </td>
     <td align="center">
-      <img src="assets/screenshots/forgot_password.png" width="200px" alt="Forgot Password"/>
+      <img src="assets/screenshots/forgot_password.png" width="200px" alt="استعادة كلمة المرور"/>
       <br/>استعادة كلمة المرور
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="assets/screenshots/signup_screen1.png" width="200px" alt="Sign-up Step 1"/>
+      <img src="assets/screenshots/signup_screen1.png" width="200px" alt="إنشاء حساب - الخطوة 1"/>
       <br/>إنشاء حساب - البيانات الأساسية
     </td>
     <td align="center">
-      <img src="assets/screenshots/signup_screen2.png" width="200px" alt="Sign-up Step 2"/>
+      <img src="assets/screenshots/signup_screen2.png" width="200px" alt="إنشاء حساب - الخطوة 2"/>
       <br/>إنشاء حساب - البيانات الإضافية
     </td>
     <td align="center">
-      <img src="assets/screenshots/confirmation_dialog.png" width="200px" alt="Confirmation Dialog"/>
+      <img src="assets/screenshots/confirmation_dialog.png" width="200px" alt="تأكيد إنشاء الحساب"/>
       <br/>تأكيد إنشاء الحساب
     </td>
   </tr>
 </table>
 
-## 🏗️ Architecture
+## 🏗️ العمارة البرمجية
 
-This project follows **Clean Architecture** principles to ensure:
-- Separation of concerns
-- Testability
-- Maintainability
-- Scalability
+يتبع هذا المشروع مبادئ **Clean Architecture** لضمان:
+- فصل المسؤوليات
+- قابلية الاختبار
+- سهولة الصيانة
+- قابلية التوسع
 
-### Project Structure
+### هيكل المشروع
 
 ```
 lib/
-├── core/
-│   ├── di/              # Dependency Injection
-│   ├── error/           # Error Handling
-│   ├── network/         # Network Utilities
-│   ├── routes/          # App Navigation
-│   └── utils/           # Common Utilities
-├── features/
-│   ├── auth/            # Authentication Feature
-│   │   ├── data/        # Data Layer
-│   │   ├── domain/      # Domain Layer
-│   │   └── presentation/# Presentation Layer
-│   ├── home/            # Home & Activity Feature
-│   └── weather/         # Weather Feature
-└── main.dart
+├── core/                # الطبقة الأساسية
+│   ├── di/              # حقن التبعيات
+│   ├── error/           # معالجة الأخطاء
+│   ├── api/             # واجهات API وخدمات الشبكة
+│   ├── routes/          # توجيه التطبيق
+│   └── utils/           # أدوات مشتركة
+│
+├── features/            # ميزات التطبيق
+│   ├── auth/            # ميزة المصادقة
+│   │   ├── data/        # طبقة البيانات
+│   │   ├── domain/      # طبقة المجال
+│   │   └── ui/          # طبقة واجهة المستخدم
+│   │
+│   ├── weather/         # ميزة الطقس
+│   │   ├── data/        # طبقة البيانات
+│   │   ├── domain/      # طبقة المجال
+│   │   └── ui/          # طبقة واجهة المستخدم
+│   │
+│   └── fitness/         # ميزة اللياقة البدنية (مستقبلًا)
+│
+├── fitness_app.dart     # مكون التطبيق الرئيسي
+└── main.dart            # نقطة الدخول للتطبيق
 ```
 
-## 🛠️ Tech Stack
+## 🛠️ التقنيات المستخدمة
 
-- **Flutter**: UI Framework
-- **Firebase**: Authentication & Backend
-- **BLoC/Cubit**: State Management
-- **Geolocator**: Location Services
-- **Weather API**: Real-time Weather Data
-- **Clean Architecture**: Project Structure
-- **Dependency Injection**: Service Locator Pattern
+- **Flutter**: إطار عمل واجهة المستخدم
+- **Firebase**: المصادقة والخلفية
+- **BLoC/Cubit**: إدارة الحالة
+- **Dio & Retrofit**: التعامل مع واجهات API
+- **Clean Architecture**: هيكل المشروع
+- **Dependency Injection**: نمط Service Locator باستخدام GetIt
+- **واجهة API الطقس**: بيانات الطقس في الوقت الحقيقي
 
-## 🚀 Getting Started
+## 🚀 البدء
 
-### Prerequisites
+### المتطلبات الأساسية
 
-- Flutter SDK (latest version)
+- Flutter SDK (أحدث إصدار)
 - Dart SDK
-- Firebase Account
-- Weather API Key (from OpenWeatherMap or similar service)
+- حساب Firebase
+- مفتاح واجهة API الطقس (من WeatherAPI.com)
 
-### Installation
+### التثبيت
 
-1. Clone the repository:
+1. استنساخ المستودع:
    ```bash
-   git clone https://github.com/yourusername/fitness_app.git
+   git clone https://github.com/mohamed12344556/Fitness-App.git
    cd fitness_app
    ```
 
-2. Install dependencies:
+2. تثبيت التبعيات:
    ```bash
    flutter pub get
    ```
 
-3. Configure Firebase:
-   - Create a new Firebase project
-   - Add Android/iOS apps in Firebase console
-   - Download and place the configuration files
-   - Enable Email/Password authentication
+3. تكوين Firebase:
+   - إنشاء مشروع Firebase جديد
+   - إضافة تطبيقات Android/iOS في وحدة تحكم Firebase
+   - تنزيل ووضع ملفات التكوين
+   - تمكين مصادقة البريد الإلكتروني/كلمة المرور
 
-4. Add your Weather API key:
-   - Create a `.env` file in the project root
-   - Add your API key: `WEATHER_API_KEY=your_api_key_here`
+4. إضافة مفتاح API الطقس الخاص بك:
+   - تعديل ملف `api_constants.dart` 
+   - إضافة مفتاح API الخاص بك: `static const String apiKey = 'your_api_key_here';`
 
-5. Run the app:
+5. تشغيل التطبيق:
    ```bash
    flutter run
    ```
 
-## ✅ Completed Tasks
+## ✅ المهام المكتملة
 
-- [x] Implemented Login & Sign-up using Firebase Authentication
-- [x] Followed Clean Architecture principles
-- [x] Utilized BLoC/Cubit for state management
-- [x] Created responsive UI for different screen sizes
-- [x] Integrated location services
-- [x] Connected to weather API
-- [x] Implemented activity tracking features
-- [x] Added user profile management
+- [x] تنفيذ تسجيل الدخول وإنشاء الحساب باستخدام Firebase Authentication
+- [x] اتباع مبادئ Clean Architecture
+- [x] استخدام Cubit لإدارة الحالة
+- [x] إنشاء واجهة مستخدم متجاوبة لأحجام شاشة مختلفة
+- [x] دمج خدمات الطقس
+- [x] إنشاء نظام أساسي لإدارة الملف الشخصي للمستخدم
 
-## 🧪 Testing
+## 🧪 الاختبارات
 
 ```bash
-# Run unit tests
+# تشغيل اختبارات الوحدة
 flutter test
 
-# Run integration tests
+# تشغيل اختبارات التكامل
 flutter test integration_test
 ```
 
-## 📄 License
+## 📄 الترخيص
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+هذا المشروع مرخص بموجب رخصة MIT - راجع ملف [LICENSE](LICENSE) للحصول على التفاصيل.
 
-## 🤝 Contributing
+## 🤝 المساهمة
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+المساهمات مرحب بها! لا تتردد في تقديم طلب سحب.
 
 ---
 
-Developed with ❤️ by [mohamed12344556](https://github.com/mohamed12344556/Fitness-App.git)
+تم تطويره بـ ❤️ بواسطة [mohamed12344556](https://github.com/mohamed12344556/Fitness-App.git)

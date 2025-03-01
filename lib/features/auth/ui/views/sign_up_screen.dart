@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (state is AuthSuccess) {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            Routes.home,
+            Routes.weatherHome,
             (route) => false,
           );
         } else if (state is AuthError) {
