@@ -37,34 +37,25 @@ A modern fitness application built with Flutter that enables users to track thei
 
 ## 📸 Screenshots
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/welcome_screen.png" width="220px" alt="شاشة الترحيب"/>
-    <p>شاشة الترحيب</p>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/login_screen.png" width="220px" alt="شاشة تسجيل الدخول"/>
-    <p>تسجيل الدخول</p>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/forgot_password.png" width="220px" alt="استعادة كلمة المرور"/>
-    <p>استعادة كلمة المرور</p>
-  </div>
-</div>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">  
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/signup_screen1.png" width="220px" alt="إنشاء حساب - الخطوة 1"/>
-    <p>إنشاء حساب - البيانات الأساسية</p>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/signup_screen2.png" width="220px" alt="إنشاء حساب - الخطوة 2"/>
-    <p>إنشاء حساب - البيانات الإضافية</p>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-    <img src="screenshots/confirmation_dialog.png" width="220px" alt="تأكيد إنشاء الحساب"/>
-    <p>تأكيد إنشاء الحساب</p>
-  </div>
-</div>
+### Authentication Screens
+![Welcome Screen](screenshots/welcome_screen.png)  
+*شاشة الترحيب*  
+
+![Login Screen](screenshots/login_screen.png)  
+*تسجيل الدخول*  
+
+![Forgot Password Screen](screenshots/forgot_password.png)  
+*استعادة كلمة المرور*  
+
+### Sign-up Screens
+![Sign-up Step 1](screenshots/signup_screen1.png)  
+*إنشاء حساب - البيانات الأساسية*  
+
+![Sign-up Step 2](screenshots/signup_screen2.png)  
+*إنشاء حساب - البيانات الإضافية*  
+
+![Confirmation Dialog](screenshots/confirmation_dialog.png)  
+*تأكيد إنشاء الحساب*  
 
 ## 🏗️ Architecture
 
