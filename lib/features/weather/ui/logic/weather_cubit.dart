@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fitness_app/features/weather/domain/entities/current_weather_entity.dart';
+import 'package:fitness_app/features/weather/domain/entities/weather_entity.dart';
 import 'package:fitness_app/features/weather/domain/use_cases/current_weather_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
