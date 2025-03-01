@@ -37,25 +37,36 @@ A modern fitness application built with Flutter that enables users to track thei
 
 ## 📸 Screenshots
 
-### Authentication Screens
-![Welcome Screen](assets/screenshots/welcome_screen.png)  
-*شاشة الترحيب*  
-
-![Login Screen](assets/screenshots/login_screen.png)  
-*تسجيل الدخول*  
-
-![Forgot Password Screen](assets/screenshots/forgot_password.png)  
-*استعادة كلمة المرور*  
-
-### Sign-up Screens
-![Sign-up Step 1](assets/screenshots/signup_screen1.png)  
-*إنشاء حساب - البيانات الأساسية*  
-
-![Sign-up Step 2](assets/screenshots/signup_screen2.png)  
-*إنشاء حساب - البيانات الإضافية*  
-
-![Confirmation Dialog](assets/screenshots/confirmation_dialog.png)  
-*تأكيد إنشاء الحساب*  
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/screenshots/welcome_screen.png" width="200px" alt="Welcome Screen"/>
+      <br/>شاشة الترحيب
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/login_screen.png" width="200px" alt="Login Screen"/>
+      <br/>تسجيل الدخول
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/forgot_password.png" width="200px" alt="Forgot Password"/>
+      <br/>استعادة كلمة المرور
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/screenshots/signup_screen1.png" width="200px" alt="Sign-up Step 1"/>
+      <br/>إنشاء حساب - البيانات الأساسية
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/signup_screen2.png" width="200px" alt="Sign-up Step 2"/>
+      <br/>إنشاء حساب - البيانات الإضافية
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/confirmation_dialog.png" width="200px" alt="Confirmation Dialog"/>
+      <br/>تأكيد إنشاء الحساب
+    </td>
+  </tr>
+</table>
 
 ## 🏗️ Architecture
 
