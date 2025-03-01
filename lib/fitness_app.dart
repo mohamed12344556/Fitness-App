@@ -13,7 +13,7 @@ class FitnessApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       onGenerateRoute: appRouter.generateRoute,
-      initialRoute: Routes.signUp,
+      initialRoute: Routes.initial,
     );
   }
 }

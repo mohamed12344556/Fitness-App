@@ -4,13 +4,17 @@ import 'package:fitness_app/features/auth/domain/repo/auth_repository.dart';
 import 'package:fitness_app/features/auth/ui/logic/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // Firebase
   final firebaseAuth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  
   sl.registerLazySingleton(() => firebaseAuth);
+  sl.registerLazySingleton(() => firestore);
 
   // Cubits
   sl.registerFactory(() => AuthCubit(sl()));
@@ -22,6 +26,9 @@ Future<void> init() async {
 
   // Data sources
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl()),
+    () => AuthRemoteDataSourceImpl(
+      firebaseAuth: sl<FirebaseAuth>(),
+      firestore: sl<FirebaseFirestore>(),
+    ),
   );
 }
