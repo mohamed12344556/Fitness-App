@@ -38,7 +38,7 @@ A modern fitness application built with Flutter that enables users to track thei
 ## 📸 Screenshots
 
 ### Authentication Screens
-![Welcome Screen](assets\screenshots\welcome_screen.png)  
+![Welcome Screen](assets/screenshots/welcome_screen.png)  
 *شاشة الترحيب*  
 
 ![Login Screen](assets\screenshots\login_screen.png)  
