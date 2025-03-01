@@ -9,11 +9,12 @@ A modern fitness application built with Flutter that enables users to track thei
 ### 🎬 Demo Video
 
 <!-- [![Fitness App Demo]](assets/videos/task1.mp4) -->
-<p align="center">
+<!-- <p align="center">
   <iframe src="https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/preview" width="640" height="360" allow="autoplay"></iframe>
-</p>
+</p> -->
 
-[![Watch Demo Video](assets/images/video_thumbnail.png)](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view)
+[![Watch Demo Video](assets/images/video_thumbnail.png)](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view?usp=sharing)
+
 
 
 
