@@ -7,16 +7,20 @@
 A modern fitness application built with Flutter that enables users to track their fitness goals, monitor daily activities, and access weather information for planning outdoor workouts. This app implements Firebase Authentication for secure user management.
 
 ### 🎬 Demo Video
-
-<!-- [![Fitness App Demo]](assets/videos/task1.mp4) -->
-<!-- <p align="center">
-  <iframe src="https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/preview" width="640" height="360" allow="autoplay"></iframe>
-</p> -->
-
 🔗 **[Click here to watch the demo](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view?usp=sharing)**  
 
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness App - Demo Video</title>
+</head>
+<body style="text-align: center;">
+    <h2>Fitness App - Demo Video</h2>
+    <iframe src="https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/preview" width="640" height="360" allow="autoplay"></iframe>
+</body>
+</html>
 
 
 *Click the image above to watch the demo video*
