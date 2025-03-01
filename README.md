@@ -41,20 +41,20 @@ A modern fitness application built with Flutter that enables users to track thei
 ![Welcome Screen](assets/screenshots/welcome_screen.png)  
 *شاشة الترحيب*  
 
-![Login Screen](assets\screenshots\login_screen.png)  
+![Login Screen](assets/screenshots/login_screen.png)  
 *تسجيل الدخول*  
 
-![Forgot Password Screen](assets\screenshots\forgot_password.png)  
+![Forgot Password Screen](assets/screenshots/forgot_password.png)  
 *استعادة كلمة المرور*  
 
 ### Sign-up Screens
-![Sign-up Step 1](assets\screenshots\signup_screen1.png)  
+![Sign-up Step 1](assets/screenshots/signup_screen1.png)  
 *إنشاء حساب - البيانات الأساسية*  
 
-![Sign-up Step 2](assets\screenshots\signup_screen2.png)  
+![Sign-up Step 2](assets/screenshots/signup_screen2.png)  
 *إنشاء حساب - البيانات الإضافية*  
 
-![Confirmation Dialog](assets\screenshots\confirmation_dialog.png)  
+![Confirmation Dialog](assets/screenshots/confirmation_dialog.png)  
 *تأكيد إنشاء الحساب*  
 
 ## 🏗️ Architecture
