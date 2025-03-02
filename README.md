@@ -7,7 +7,7 @@
 تطبيق لياقة بدنية عصري مبني بواسطة Flutter يمكن المستخدمين من تتبع أهدافهم الرياضية، مراقبة الأنشطة اليومية، والوصول إلى معلومات الطقس لتخطيط التمارين الخارجية. يستخدم التطبيق Firebase Authentication لإدارة المستخدمين بشكل آمن.
 
 ### 🎬 فيديو توضيحي
-🔗 **[اضغط هنا لمشاهدة العرض التوضيحي](https://drive.google.com/file/d/1dm1khD2aMdyKKORBFZnGg9e-tOXlpO5V/view?usp=sharing)**  
+🔗 **[اضغط هنا لمشاهدة العرض التوضيحي](https://drive.google.com/file/d/1U94wN_KGqM1d2rJWJ3tWp9LeuY-wiWjH/view?usp=sharing)**  
 
 ## ✨ المميزات
 
