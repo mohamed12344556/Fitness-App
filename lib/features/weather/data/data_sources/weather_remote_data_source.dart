@@ -6,6 +6,10 @@ abstract class WeatherRemoteDataSource {
   Future<WeatherResponse> getCurrentWeatherByCityName(
     WeatherRequestBody request,
   );
+  
+  Future<WeatherResponse> getForecastWeatherByCityName(
+    WeatherRequestBody request,
+  );
 }
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
@@ -16,5 +20,13 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   @override
   Future<WeatherResponse> getCurrentWeatherByCityName(WeatherRequestBody request) async {
     return await apiService.getCurrentWeatherByCityName(request.cityName);
+  }
+  
+  @override
+  Future<WeatherResponse> getForecastWeatherByCityName(WeatherRequestBody request) async {
+    return await apiService.getForecastWeatherByCityName(
+      request.cityName,
+      request.days,
+    );
   }
 }

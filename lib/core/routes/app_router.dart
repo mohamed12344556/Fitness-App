@@ -2,7 +2,10 @@ import 'package:fitness_app/core/routes/routs.dart';
 import 'package:fitness_app/features/auth/ui/views/welcome_screen.dart';
 import 'package:fitness_app/features/auth/ui/views/login_screen.dart';
 import 'package:fitness_app/features/auth/ui/views/sign_up_screen.dart';
+import 'package:fitness_app/features/weather/ui/views/get_current_weather_by_name.dart';
+import 'package:fitness_app/features/weather/ui/views/dashboard_screen.dart';
 import 'package:fitness_app/features/weather/ui/views/weather_home_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fitness_app/features/auth/ui/logic/auth_cubit.dart';
@@ -41,6 +44,15 @@ class AppRouter {
               ),
         );
 
+      case Routes.dashboard:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider<AuthCubit>(
+                create: (context) => sl<AuthCubit>(),
+                child: const DashboardScreen(),
+              ),
+        );
+
       case Routes.weatherHome:
         return MaterialPageRoute(
           builder:
@@ -52,6 +64,15 @@ class AppRouter {
                   ),
                 ],
                 child: const WeatherHomeView(),
+              ),
+        );
+
+      case Routes.weatherByCity:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider<AuthCubit>(
+                create: (context) => sl<AuthCubit>(),
+                child: const GetCurrentWeatherByName(),
               ),
         );
 

@@ -7,7 +7,10 @@ part of 'weather_request_body.dart';
 // **************************************************************************
 
 WeatherRequestBody _$WeatherRequestBodyFromJson(Map<String, dynamic> json) =>
-    WeatherRequestBody(cityName: json['q'] as String);
+    WeatherRequestBody(
+      cityName: json['q'] as String,
+      days: (json['days'] as num?)?.toInt() ?? 3,
+    );
 
 Map<String, dynamic> _$WeatherRequestBodyToJson(WeatherRequestBody instance) =>
-    <String, dynamic>{'q': instance.cityName};
+    <String, dynamic>{'q': instance.cityName, 'days': instance.days};

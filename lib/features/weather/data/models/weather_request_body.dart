@@ -6,8 +6,14 @@ part 'weather_request_body.g.dart';
 class WeatherRequestBody {
   @JsonKey(name: 'q')
   final String cityName;
+  
+  @JsonKey(name: 'days')
+  final int days;
 
-  WeatherRequestBody({required this.cityName});
+  WeatherRequestBody({
+    required this.cityName,
+    this.days = 3, // Default to 3 days for forecast
+  });
 
   factory WeatherRequestBody.fromJson(Map<String, dynamic> json) =>
       _$WeatherRequestBodyFromJson(json);

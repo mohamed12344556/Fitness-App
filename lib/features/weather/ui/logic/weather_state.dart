@@ -13,11 +13,20 @@ class WeatherLoading extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
   final WeatherEntity weather;
+  final int selectedDayIndex;
 
-  const WeatherLoaded({required this.weather});
+  const WeatherLoaded({
+    required this.weather,
+    this.selectedDayIndex = 0,
+  });
 
   @override
-  List<Object> get props => [weather];
+  List<Object> get props => [weather, selectedDayIndex];
+  
+  ForecastDayEntity get selectedDay => 
+      weather.forecastDays.isNotEmpty 
+          ? weather.forecastDays[selectedDayIndex]
+          : throw Exception('No forecast data available');
 }
 
 class WeatherFailure extends WeatherState {

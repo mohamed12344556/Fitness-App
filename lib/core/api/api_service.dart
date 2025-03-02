@@ -11,5 +11,13 @@ abstract class ApiService {
   factory ApiService(Dio dio) = _ApiService;
 
   @GET(ApiConstants.currentWeather)
-  Future<WeatherResponse> getCurrentWeatherByCityName(@Query('q') String cityName);
+  Future<WeatherResponse> getCurrentWeatherByCityName(
+    @Query('q') String cityName,
+  );
+
+  @GET(ApiConstants.forecastWeather)
+  Future<WeatherResponse> getForecastWeatherByCityName(
+    @Query('q') String cityName,
+    @Query('days') int days,
+  );
 }
