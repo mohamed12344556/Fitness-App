@@ -7,7 +7,7 @@
 تطبيق لياقة بدنية عصري مبني بواسطة Flutter يمكن المستخدمين من تتبع أهدافهم الرياضية، مراقبة الأنشطة اليومية، والوصول إلى معلومات الطقس لتخطيط التمارين الخارجية. يستخدم التطبيق Firebase Authentication لإدارة المستخدمين بشكل آمن.
 
 ### 🎬 فيديو توضيحي
-🔗 **[اضغط هنا لمشاهدة العرض التوضيحي](https://drive.google.com/file/d/1AQX28xomD18VSH2rx0knTlVuaqHh4jgg/view?usp=sharing)**  
+🔗 **[اضغط هنا لمشاهدة العرض التوضيحي](https://drive.google.com/file/d/1dm1khD2aMdyKKORBFZnGg9e-tOXlpO5V/view?usp=sharing)**  
 
 ## ✨ المميزات
 
@@ -58,16 +58,30 @@
   </tr>
   <tr>
     <td align="center">
-      <img src="assets/screenshots/current_weather.png" width="200px" alt="الطقس الحالي"/>
+      <img src="assets/screenshots/search_screen.png" width="200px" alt="الطقس الحالي"/>
       <br/>الطقس الحالي
     </td>
     <td align="center">
-      <img src="assets/screenshots/forecast_weather.png" width="200px" alt="توقعات الطقس"/>
+      <img src="assets/screenshots/forecast_screen.png" width="200px" alt="توقعات الطقس"/>
       <br/>توقعات الطقس
     </td>
     <td align="center">
-      <img src="assets/screenshots/fitness_dashboard.png" width="200px" alt="لوحة اللياقة البدنية"/>
+      <img src="assets/screenshots/dashboard_screen.png" width="200px" alt="لوحة اللياقة البدنية"/>
       <br/>لوحة اللياقة البدنية
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/screenshots/search_screen.png" width="200px" alt="شاشة البحث"/>
+      <br/>شاشة البحث
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/forecast_screen.png" width="200px" alt="شاشة التوقعات"/>
+      <br/>شاشة التوقعات
+    </td>
+    <td align="center">
+      <img src="assets/screenshots/dashboard_screen.png" width="200px" alt="لوحة التحكم المطورة"/>
+      <br/>لوحة التحكم المطورة
     </td>
   </tr>
 </table>
