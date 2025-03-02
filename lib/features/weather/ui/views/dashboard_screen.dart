@@ -12,13 +12,13 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   String _userName = "User"; // Default username
-  
+
   @override
   void initState() {
     super.initState();
     _getCurrentUserName();
   }
-  
+
   Future<void> _getCurrentUserName() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -30,23 +30,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
           });
         } else {
           // If no display name, try to get the name from Firestore
-          final userDoc = await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .get();
-          
-          if (userDoc.exists && userDoc.data()!.containsKey('name')) {
-            setState(() {
-              _userName = userDoc.data()!['name'];
-            });
-          } else if (userDoc.exists && userDoc.data()!.containsKey('userName')) {
-            setState(() {
-              _userName = userDoc.data()!['userName'];
-            });
+          final userDoc =
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user.uid)
+                  .get();
+
+          if (userDoc.exists) {
+            // Check for fullName field with correct case sensitivity
+            if (userDoc.data()!.containsKey('fullName')) {
+              setState(() {
+                _userName = userDoc.data()!['fullName'];
+              });
+            }
+            // Then check other possible fields as fallbacks
+            else if (userDoc.data()!.containsKey('name')) {
+              setState(() {
+                _userName = userDoc.data()!['name'];
+              });
+            } else if (userDoc.data()!.containsKey('userName')) {
+              setState(() {
+                _userName = userDoc.data()!['userName'];
+              });
+            } else if (user.email != null) {
+              setState(() {
+                _userName = user.email!.split('@')[0]; // Just use part before @
+              });
+            }
           } else if (user.email != null) {
-            // If no name in Firestore, use email as fallback
+            // If document doesn't exist, use email as fallback
             setState(() {
-              _userName = user.email!.split('@')[0]; // Just use part before @
+              _userName = user.email!.split('@')[0];
             });
           }
         }
@@ -55,8 +69,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       print('Error fetching user name: $e');
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -85,28 +97,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                         Text(
                           _userName,
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: Colors.white,
-                          ),
+                          style: TextStyle(fontSize: 28, color: Colors.white),
                         ),
                       ],
                     ),
                     CircleAvatar(
                       radius: 30,
                       backgroundColor: Colors.blue.withOpacity(0.2),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 32,
-                      ),
+                      child: Icon(Icons.person, color: Colors.white, size: 32),
                     ),
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 20),
-              
+
               // Main Dashboard Options
               Expanded(
                 child: Padding(
@@ -122,6 +127,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Icons.cloud,
                         Colors.blue,
                         () => Navigator.pushNamed(context, Routes.weatherHome),
+                      ),
+                      _buildDashboardItem(
+                        context,
+                        'AI Weather',
+                        Icons.auto_awesome,
+                        Colors.deepPurple,
+                        () => Navigator.pushNamed(
+                          context,
+                          Routes.aiWeatherPrediction,
+                        ),
                       ),
                       _buildDashboardItem(
                         context,
@@ -148,7 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
-              
+
               // Bottom Section
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -173,10 +188,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(fontSize: 16),
-                        ),
+                        child: Text('Logout', style: TextStyle(fontSize: 16)),
                       ),
                     ),
                   ],
@@ -188,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-  
+
   Widget _buildDashboardItem(
     BuildContext context,
     String title,
@@ -202,19 +214,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         decoration: BoxDecoration(
           color: color.withOpacity(0.2),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: color.withOpacity(0.5),
-            width: 2,
-          ),
+          border: Border.all(color: color.withOpacity(0.5), width: 2),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 50,
-              color: Colors.white,
-            ),
+            Icon(icon, size: 50, color: Colors.white),
             const SizedBox(height: 10),
             Text(
               title,
@@ -229,20 +234,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-  
+
   void _showComingSoonDialog(BuildContext context, String feature) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Coming Soon'),
-        content: Text('The $feature feature will be available in a future update.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+      builder:
+          (context) => AlertDialog(
+            title: Text('Coming Soon'),
+            content: Text(
+              'The $feature feature will be available in a future update.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }

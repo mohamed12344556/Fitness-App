@@ -32,11 +32,9 @@ class _HomeViewContentState extends State<_HomeViewContent> {
   @override
   void initState() {
     super.initState();
-    // Default city
-    _cityController.text = 'London';
-    // Get weather for default city
+    final weatherCubit = context.read<WeatherCubit>();
+    _cityController.text = weatherCubit.currentCity;
     context.read<WeatherCubit>().getCurrentWeather(_cityController.text);
-    // Get current user name
     _getCurrentUserName();
   }
 
@@ -51,23 +49,37 @@ class _HomeViewContentState extends State<_HomeViewContent> {
           });
         } else {
           // If no display name, try to get the name from Firestore
-          final userDoc = await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .get();
-          
-          if (userDoc.exists && userDoc.data()!.containsKey('name')) {
-            setState(() {
-              _userName = userDoc.data()!['name'];
-            });
-          } else if (userDoc.exists && userDoc.data()!.containsKey('userName')) {
-            setState(() {
-              _userName = userDoc.data()!['userName'];
-            });
+          final userDoc =
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user.uid)
+                  .get();
+
+          if (userDoc.exists) {
+            // Check for fullName field with correct case sensitivity
+            if (userDoc.data()!.containsKey('fullName')) {
+              setState(() {
+                _userName = userDoc.data()!['fullName'];
+              });
+            }
+            // Then check other possible fields as fallbacks
+            else if (userDoc.data()!.containsKey('name')) {
+              setState(() {
+                _userName = userDoc.data()!['name'];
+              });
+            } else if (userDoc.data()!.containsKey('userName')) {
+              setState(() {
+                _userName = userDoc.data()!['userName'];
+              });
+            } else if (user.email != null) {
+              setState(() {
+                _userName = user.email!.split('@')[0]; // Just use part before @
+              });
+            }
           } else if (user.email != null) {
-            // If no name in Firestore, use email as fallback
+            // If document doesn't exist, use email as fallback
             setState(() {
-              _userName = user.email!.split('@')[0]; // Just use part before @
+              _userName = user.email!.split('@')[0];
             });
           }
         }
@@ -180,24 +192,25 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                                       ),
                                       const SizedBox(height: 10),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           _weatherInfoItem(
                                             Icons.water_drop,
                                             '${state.weather.humidity}%',
-                                            'Humidity'
+                                            'Humidity',
                                           ),
                                           const SizedBox(width: 30),
                                           _weatherInfoItem(
                                             Icons.thermostat,
                                             '${state.weather.feelslike_c}°C',
-                                            'Feels Like'
+                                            'Feels Like',
                                           ),
                                           const SizedBox(width: 30),
                                           _weatherInfoItem(
                                             Icons.cloud,
                                             '${state.weather.cloud}%',
-                                            'Cloud'
+                                            'Cloud',
                                           ),
                                         ],
                                       ),
@@ -289,7 +302,9 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                       onPressed: () {
                         final cityName = _cityController.text.trim();
                         if (cityName.isNotEmpty) {
-                          context.read<WeatherCubit>().getCurrentWeather(cityName);
+                          context.read<WeatherCubit>().getCurrentWeather(
+                            cityName,
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -324,7 +339,7 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                     _navBarItem(
                       Icons.wb_sunny,
                       'Current',
-                      isSelected: true, // This is the current page (GetCurrentWeatherByName)
+                      isSelected: true, // This is the current page
                     ),
                     _navBarItem(
                       Icons.cloud,
@@ -337,6 +352,16 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                       },
                     ),
                     _navBarItem(
+                      Icons.auto_awesome,
+                      'AI Predict',
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.aiWeatherPrediction,
+                        );
+                      },
+                    ),
+                    _navBarItem(
                       Icons.dashboard,
                       'Dashboard',
                       onTap: () {
@@ -344,13 +369,6 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                           context,
                           Routes.dashboard,
                         );
-                      },
-                    ),
-                    _navBarItem(
-                      Icons.account_circle,
-                      'Profile',
-                      onTap: () {
-                        _showComingSoonDialog(context, 'Profile');
                       },
                     ),
                     _navBarItem(
@@ -373,16 +391,19 @@ class _HomeViewContentState extends State<_HomeViewContent> {
   void _showComingSoonDialog(BuildContext context, String feature) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Coming Soon'),
-        content: Text('The $feature feature will be available in a future update.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Coming Soon'),
+            content: Text(
+              'The $feature feature will be available in a future update.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -401,16 +422,18 @@ class _HomeViewContentState extends State<_HomeViewContent> {
         ),
         Text(
           label,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 12),
         ),
       ],
     );
   }
 
-  Widget _navBarItem(IconData icon, String label, {bool isSelected = false, VoidCallback? onTap}) {
+  Widget _navBarItem(
+    IconData icon,
+    String label, {
+    bool isSelected = false,
+    VoidCallback? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -421,23 +444,15 @@ class _HomeViewContentState extends State<_HomeViewContent> {
             decoration: BoxDecoration(
               color: isSelected ? null : Colors.transparent,
               borderRadius: BorderRadius.circular(10),
-              border: isSelected
-                  ? Border.all(color: Colors.white, width: 2)
-                  : null,
+              border:
+                  isSelected ? Border.all(color: Colors.white, width: 2) : null,
             ),
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: 24,
-            ),
+            child: Icon(icon, color: Colors.white, size: 24),
           ),
           const SizedBox(height: 5),
           Text(
             label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
         ],
       ),

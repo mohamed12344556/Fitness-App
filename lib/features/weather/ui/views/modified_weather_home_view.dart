@@ -3,18 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fitness_app/core/di/dependency_injection.dart';
 import 'package:fitness_app/features/weather/ui/logic/weather_cubit.dart';
+import 'package:fitness_app/features/weather/ui/logic/weather_prediction_cubit.dart';
+import 'package:fitness_app/features/weather/ui/widgets/weather_prediction_dialog.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/core/routes/routs.dart';
 
-class WeatherHomeView extends StatelessWidget {
-  const WeatherHomeView({super.key});
+class ModifiedWeatherHomeView extends StatelessWidget {
+  const ModifiedWeatherHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<WeatherCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => sl<WeatherCubit>()),
+        BlocProvider(create: (context) => sl<WeatherPredictionCubit>()),
+      ],
       child: const _HomeViewContent(),
     );
   }
@@ -198,56 +203,75 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                     ),
 
                     // Weather Search Option
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _cityController,
-                                style: const TextStyle(color: Colors.white),
-                                decoration: const InputDecoration(
-                                  hintText: 'Search city...',
-                                  hintStyle: TextStyle(color: Colors.white70),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                final cityName = _cityController.text.trim();
-                                if (cityName.isNotEmpty) {
-                                  context
-                                      .read<WeatherCubit>()
-                                      .getForecastWeather(cityName);
-                                  FocusScope.of(
-                                    context,
-                                  ).unfocus(); // إخفاء لوحة المفاتيح
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+Padding(
+  padding: const EdgeInsets.all(10),
+  child: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _cityController,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              hintText: 'Search city...',
+              hintStyle: TextStyle(color: Colors.white70),
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.search, color: Colors.white),
+          onPressed: () {
+            final cityName = _cityController.text.trim();
+            if (cityName.isNotEmpty) {
+              context.read<WeatherCubit>().getForecastWeather(cityName);
+              FocusScope.of(context).unfocus(); // إخفاء لوحة المفاتيح
+            }
+          },
+        ),
+      ],
+    ),
+  ),
+),
 
                     // Day Selector
                     SizedBox(
                       height: 90,
                       child: _buildDaySelector(weather, state.selectedDayIndex),
+                    ),
+
+                    // AI Prediction Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          context
+                              .read<WeatherPredictionCubit>()
+                              .predictOutdoorActivity(weather);
+                          _showPredictionResults(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        icon: const Icon(Icons.auto_awesome),
+                        label: const Text(
+                          'هل يجب أن أخرج اليوم؟',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
                     ),
 
                     // Steps Count with Icon
@@ -326,7 +350,7 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                       ),
                     ),
 
-                    // Navigation Bar - Updated with navigation logic
+                    // Navigation Bar - Updated with AI Prediction navigation
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       margin: const EdgeInsets.only(bottom: 10),
@@ -350,17 +374,17 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                           _navBarItem(
                             Icons.cloud,
                             'Forecast',
-                            isSelected: true, // This is the current page
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                Routes.weatherHome,
+                              );
+                            },
                           ),
                           _navBarItem(
                             Icons.auto_awesome,
                             'AI Predict',
-                            onTap: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                Routes.aiWeatherPrediction,
-                              );
-                            },
+                            isSelected: true, // Esta es la página actual
                           ),
                           _navBarItem(
                             Icons.dashboard,
@@ -399,19 +423,80 @@ class _HomeViewContentState extends State<_HomeViewContent> {
     );
   }
 
+  // Method to show prediction results
+  void _showPredictionResults(BuildContext context) {
+    final cubit = context.read<WeatherPredictionCubit>();
+
+    showDialog(
+      context: context,
+      builder:
+          (dialogContext) => BlocProvider.value(
+            value: cubit, // تمرير Cubit الموجود بالفعل
+            child: Builder(
+              builder:
+                  (providerContext) => BlocBuilder<
+                    WeatherPredictionCubit,
+                    WeatherPredictionState
+                  >(
+                    builder: (builderContext, state) {
+                      if (state is WeatherPredictionLoading) {
+                        return const AlertDialog(
+                          backgroundColor: Color(0xFF0A1929),
+                          content: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      } else if (state is WeatherPredictionLoaded) {
+                        return WeatherPredictionDialog(
+                          prediction: state.prediction,
+                        );
+                      } else if (state is WeatherPredictionFailure) {
+                        return AlertDialog(
+                          backgroundColor: const Color(0xFF0A1929),
+                          title: const Text(
+                            'خطأ',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          content: Text(
+                            'لم نتمكن من الحصول على التنبؤ: ${state.message}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed:
+                                  () => Navigator.of(dialogContext).pop(),
+                              child: const Text('إغلاق'),
+                            ),
+                          ],
+                        );
+                      }
+                      return const AlertDialog(
+                        backgroundColor: Color(0xFF0A1929),
+                        content: Text(
+                          'جاري تحميل التنبؤ...',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      );
+                    },
+                  ),
+            ),
+          ),
+    );
+  }
+
   void _showComingSoonDialog(BuildContext context, String feature) {
     showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Coming Soon'),
-            content: Text(
-              'The $feature feature will be available in a future update.',
-            ),
+            title: const Text('قريباً'),
+            content: Text('ستتوفر ميزة $feature في تحديث مستقبلي.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('OK'),
+                child: const Text('حسناً'),
               ),
             ],
           ),

@@ -14,5 +14,4 @@ void main() async {
   // Initialize dependency injection
   await init();
   runApp(FitnessApp(appRouter: AppRouter()));
-  
 }
