@@ -203,41 +203,51 @@ class _HomeViewContentState extends State<_HomeViewContent> {
                     ),
 
                     // Weather Search Option
-Padding(
-  padding: const EdgeInsets.all(10),
-  child: Container(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.1),
-      borderRadius: BorderRadius.circular(30),
-    ),
-    child: Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _cityController,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              hintText: 'Search city...',
-              hintStyle: TextStyle(color: Colors.white70),
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        IconButton(
-          icon: const Icon(Icons.search, color: Colors.white),
-          onPressed: () {
-            final cityName = _cityController.text.trim();
-            if (cityName.isNotEmpty) {
-              context.read<WeatherCubit>().getForecastWeather(cityName);
-              FocusScope.of(context).unfocus(); // إخفاء لوحة المفاتيح
-            }
-          },
-        ),
-      ],
-    ),
-  ),
-),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: _cityController,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: const InputDecoration(
+                                  hintText: 'Search city...',
+                                  hintStyle: TextStyle(color: Colors.white70),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                final cityName = _cityController.text.trim();
+                                if (cityName.isNotEmpty) {
+                                  context
+                                      .read<WeatherCubit>()
+                                      .getForecastWeather(cityName);
+                                  FocusScope.of(
+                                    context,
+                                  ).unfocus(); // إخفاء لوحة المفاتيح
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
                     // Day Selector
                     SizedBox(
